@@ -10,7 +10,10 @@ In the ActivityWeek asset, the Activities Equal Stat is to make a lesson for eve
 
 If you want to change the story, edit the Story.ink file and don't forget to export to JSON. You'll figure how to choose which day equals wich text by reading the file itself.
 
-In the MainMenu scene, in the GameManager on the camera, the Elegance var is just for debug, don't mind it.
+After changing the character stats, look at the ActivitiyManager and every GameObject in the SkillsMenu. Don't change anything, Unity just need to reload the informations
 
+You can set the name above every dialog and the sprite used for the character in the DialogParameters object.
+
+In the ink story, you have to put a tag (it's what's after a #) to specify which character is talking (mainCharacter in the example)
 
 It's been a pain in the ass, really…
