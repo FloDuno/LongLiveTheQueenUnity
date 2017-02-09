@@ -29,13 +29,17 @@ public class ContentManager : MonoBehaviour
         _choicesButtons = _choicesHandler.GetComponentsInChildren<Button>();
         for (int i = 0; i < GameManager.Instance.characterStats.moods.Length; i++)
         {
+            _inkStory.variablesState[GameManager.Instance.characterStats.moods[i].nameInInk] =
+                GameManager.Instance.characterStats.moods[i].intialValue;
+            int _index = i;
             _inkStory.ObserveVariable(
                 GameManager.Instance.characterStats.moods[i].nameInInk,
                 (string _varName, object _newValue) =>
                 {
-                    GameManager.Instance.characterStats.moods[i].value = (int)_newValue;
+                    GameManager.Instance.characterStats.moods[_index].value = (int)_newValue;
                 });
         }
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -47,7 +51,7 @@ public class ContentManager : MonoBehaviour
             _inkStory.Continue();
             UpdateDisplay();
         }
-        else if(Input.GetMouseButtonDown(0) && !_inkStory.canContinue)
+        else if (Input.GetMouseButtonDown(0) && !_inkStory.canContinue)
         {
             GameManager.Instance.menu.SetActive(true);
             gameObject.SetActive(false);
@@ -104,22 +108,9 @@ public class ContentManager : MonoBehaviour
 
     public void ChooseDialog(int _day)
     {
-        if (_inkStory == null)
-        {
-            StartCoroutine(DelayChooseDialog(_day));
-            return;
-        }
         _inkStory.ChoosePathString("Day" + _day);
         _inkStory.Continue();
         UpdateDisplay();
     }
 
-    private IEnumerator DelayChooseDialog(int _day)
-    {
-        while (_inkStory == null)
-        {
-            yield return null;
-        }
-        ChooseDialog(_day);
-    }
 }

@@ -1,1 +1,1 @@
-﻿{"inkVersion":16,"root":["done",{"Day1":["^seisciau ",{"#":"MainCharac"},"\n","end",{"#f":3}],"Day2":["^seaseasnrtse","\n","end",{"#f":3}],"#f":3}],"listDefs":{}}
+﻿{"inkVersion":16,"root":["done",{"Day1":["^seisciau ",{"#":"MainCharac"},"\n","ev",{"VAR?":"Mood1"},1,"+","/ev",{"temp=":"Mood1","re":true},["G>","ev",{"VAR?":"Mood1"},"out","/ev","G<",null],"\n","end",{"#f":3}],"Day2":["^seaseasnrtse","\n","ev",3,"/ev",{"temp=":"Mood1","re":true},"end",{"#f":3}],"global decl":["ev",0,{"VAR=":"Mood1"},"/ev","end",null],"#f":3}],"listDefs":{}}

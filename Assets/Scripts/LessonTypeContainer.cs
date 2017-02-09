@@ -16,6 +16,7 @@ public class LessonTypeContainer : MonoBehaviour
 
     //Index necesary for the "popup" view
     [HideInInspector] public int lessonTypeIndex;
+
     [HideInInspector] public string lessonType;
 
     private void Start()
@@ -50,12 +51,24 @@ public class LessonTypeContainer : MonoBehaviour
         }
     }
 
-    private void ResetButtons(CharacterStats __characterstats)
+    private void ResetButtons(CharacterStats _characterstats)
     {
-        Toggle[] _childrenLessons = GetComponentsInChildren<Toggle>();
-        for (int i = 0; i < _childrenLessons.Length; i++)
+        if (specialities)
         {
-            _childrenLessons[i].isOn = false;
+            foreach (Transform _child in transform)
+            {
+                Destroy(_child.gameObject);
+            }
+        }
+        else
+        {
+
+
+            Toggle[] _childrenLessons = GetComponentsInChildren<Toggle>();
+            for (int i = 0; i < _childrenLessons.Length; i++)
+            {
+                _childrenLessons[i].isOn = false;
+            }
         }
     }
 }
