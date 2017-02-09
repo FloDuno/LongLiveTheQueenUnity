@@ -35,6 +35,8 @@ public class LessonTypeContainer : MonoBehaviour
             }
         }
 
+        EventManager.ChangeStatEvent += ResetButtons;
+
         //Spawn buttons
         for (int i = 0; i < _numberOfLessonOfThisType; i++)
         {
@@ -45,6 +47,15 @@ public class LessonTypeContainer : MonoBehaviour
             _newToggle.GetComponent<ActivityToggle>().isSpeciality = specialities;
             _newToggle.GetComponent<ActivityToggle>().lesson = _lessons[i];
             _newToggle.GetComponentInChildren<Text>().text = _lessons[i].name;
+        }
+    }
+
+    private void ResetButtons(CharacterStats __characterstats)
+    {
+        Toggle[] _childrenLessons = GetComponentsInChildren<Toggle>();
+        for (int i = 0; i < _childrenLessons.Length; i++)
+        {
+            _childrenLessons[i].isOn = false;
         }
     }
 }

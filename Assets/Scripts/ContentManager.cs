@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
 
 //Not implemented yet
 public class ContentManager : MonoBehaviour
 {
-    [SerializeField] private Text _text;
+    [SerializeField] private Text _nameCharacter;
+    [SerializeField] private Text _mainText;
+    [SerializeField] private Image _spriteHandler;
     [SerializeField] private GameObject _choicesHandler;
+    [SerializeField] private DialogManager _dialogManager;
 
     // Set this file to your compiled json asset
     public TextAsset inkAsset;
@@ -15,6 +19,7 @@ public class ContentManager : MonoBehaviour
     private Story _inkStory;
 
     private Button[] _choicesButtons;
+    private DialogManager.DialogParameter _actualDialogParameter;
 
     // Use this for initialization
     private void Start()
@@ -22,25 +27,45 @@ public class ContentManager : MonoBehaviour
         _inkStory = new Story(inkAsset.text);
         _inkStory.Continue();
         _choicesButtons = _choicesHandler.GetComponentsInChildren<Button>();
-        //        DisplayTextDebug();
-    }
-
-    private void DisplayTextDebug()
-    {
-        _inkStory.ChoosePathString("Jour1");
-        print(_inkStory.ContinueMaximally());
-        _inkStory.ChoosePathString("Jour2");
-        print(_inkStory.ContinueMaximally());
+        for (int i = 0; i < GameManager.Instance.characterStats.moods.Length; i++)
+        {
+            _inkStory.ObserveVariable(
+                GameManager.Instance.characterStats.moods[i].nameInInk,
+                (string _varName, object _newValue) =>
+                {
+                    GameManager.Instance.characterStats.moods[i].value = (int)_newValue;
+                });
+        }
     }
 
     // Update is called once per frame
     private void Update()
     {
-        _text.text = _inkStory.currentText;
+        _mainText.text = _inkStory.currentText;
         if (Input.GetMouseButtonDown(0) && _inkStory.canContinue)
+        {
             _inkStory.Continue();
+            UpdateDisplay();
+        }
+        else if(Input.GetMouseButtonDown(0) && !_inkStory.canContinue)
+        {
+            GameManager.Instance.menu.SetActive(true);
+            gameObject.SetActive(false);
+        }
 
         CheckChoices();
+    }
+
+    private void UpdateDisplay()
+    {
+        if (_inkStory.currentTags.Count <= 0)
+            return;
+
+        if (_dialogManager.HasParameter(_inkStory.currentTags[0], out _actualDialogParameter))
+        {
+            _nameCharacter.text = _actualDialogParameter.nameInUnity;
+            _spriteHandler.sprite = _actualDialogParameter.sprite;
+        }
     }
 
     private void CheckChoices()
@@ -77,17 +102,24 @@ public class ContentManager : MonoBehaviour
         }
     }
 
-    private void CheckChoicesDebug()
+    public void ChooseDialog(int _day)
     {
-        if (_inkStory.currentChoices.Count > 0 && Input.inputString != null)
+        if (_inkStory == null)
         {
-            string _actualKey = Input.inputString;
-            int _choice;
-            if (int.TryParse(_actualKey, out _choice) && _choice < _inkStory.currentChoices.Count)
-            {
-                _inkStory.ChooseChoiceIndex(_choice);
-                _inkStory.Continue();
-            }
+            StartCoroutine(DelayChooseDialog(_day));
+            return;
         }
+        _inkStory.ChoosePathString("Day" + _day);
+        _inkStory.Continue();
+        UpdateDisplay();
+    }
+
+    private IEnumerator DelayChooseDialog(int _day)
+    {
+        while (_inkStory == null)
+        {
+            yield return null;
+        }
+        ChooseDialog(_day);
     }
 }

@@ -1,7 +1,7 @@
-=== Jour1 === 
-Ceci est un texte du jour 1
+===Day1===
+seisciau #MainCharac
 ->END
 
-=== Jour2 === 
-Ceci est un texte du jour 2
+===Day2===
+seaseasnrtse
 ->END

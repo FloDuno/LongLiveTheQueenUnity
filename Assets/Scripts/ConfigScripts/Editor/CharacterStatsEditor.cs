@@ -69,8 +69,8 @@ public class CharacterStatsEditor : Editor
                             EditorGUILayout.TextField(_base.statGroups[i].stats[j].name);
                         GUIStyle _alignRight = new GUIStyle {alignment = TextAnchor.MiddleRight};
                         EditorGUILayout.LabelField("Default value", _alignRight, GUILayout.Width(100));
-                        _base.statGroups[i].stats[j].value =
-                            EditorGUILayout.IntField(_base.statGroups[i].stats[j].value);
+                        _base.statGroups[i].stats[j].initialValue =
+                            EditorGUILayout.IntField(_base.statGroups[i].stats[j].initialValue);
                         EditorGUILayout.EndHorizontal();
                     }
                 }
