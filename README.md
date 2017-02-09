@@ -16,4 +16,6 @@ You can set the name above every dialog and the sprite used for the character in
 
 In the ink story, you have to put a tag (it's what's after a #) to specify which character is talking (mainCharacter in the example)
 
+To change the mood based on the choices in the story, you have to change in ink the variable named like in CharacterStats -> Mood -> Name in ink
+
 It's been a pain in the ass, really…
