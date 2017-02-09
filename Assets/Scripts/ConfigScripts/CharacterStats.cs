@@ -35,7 +35,7 @@ public class CharacterStats : ScriptableObject
         }
     }
 
-    public void ResetStat()
+    public void ResetCharacterValues()
     {
         for (int i = 0; i < statGroups.Length; i++)
         {
@@ -43,6 +43,11 @@ public class CharacterStats : ScriptableObject
             {
                 statGroups[i].stats[j].value = statGroups[i].stats[j].initialValue;
             }
+
+        }
+        for (int i = 0; i < moods.Length; i++)
+        {
+            moods[i].value = moods[i].intialValue;
         }
     }
 

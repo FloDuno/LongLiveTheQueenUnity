@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        characterStats.ResetStat();
+        characterStats.ResetCharacterValues();
         EventManager.ChangeStatEvent += DisplayTextOfTheDay;
         dayNumber = 1;
     }
