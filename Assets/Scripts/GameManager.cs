@@ -5,11 +5,13 @@ public class GameManager : MonoBehaviour
 {
 
     [HideInInspector] public int dayNumber;
+
     public CharacterStats characterStats;
 
     [SerializeField] private ContentManager _contentManager;
     public GameObject menu;
 
+    [SerializeField] private int _maxDays;
     private static GameManager _instance;
 
     // Game Instance Singleton
@@ -36,8 +38,15 @@ public class GameManager : MonoBehaviour
     private void DisplayTextOfTheDay(CharacterStats _characterStats)
     {
         _contentManager.gameObject.SetActive(true);
-        _contentManager.ChooseDialog(dayNumber);
-        dayNumber++;
+        if (dayNumber < _maxDays)
+        {
+            _contentManager.ChooseDialog(dayNumber);
+            dayNumber++;
+        }
+        else
+        {
+            _contentManager.GoToEnd();
+        }
         menu.SetActive(false);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using Ink.Runtime;
 using UnityEngine.UI;
 
@@ -11,6 +10,8 @@ public class ContentManager : MonoBehaviour
     [SerializeField] private Image _spriteHandler;
     [SerializeField] private GameObject _choicesHandler;
     [SerializeField] private DialogManager _dialogManager;
+
+    private bool _end;
 
     // Set this file to your compiled json asset
     public TextAsset inkAsset;
@@ -39,6 +40,7 @@ public class ContentManager : MonoBehaviour
                     GameManager.Instance.characterStats.moods[_index].value = (int)_newValue;
                 });
         }
+
         gameObject.SetActive(false);
     }
 
@@ -46,13 +48,20 @@ public class ContentManager : MonoBehaviour
     private void Update()
     {
         _mainText.text = _inkStory.currentText;
-        if (Input.GetMouseButtonDown(0) && _inkStory.canContinue)
+        if (Input.GetMouseButtonDown(0) && _inkStory.canContinue && _inkStory.currentChoices.Count == 0)
         {
             _inkStory.Continue();
             UpdateDisplay();
         }
         else if (Input.GetMouseButtonDown(0) && !_inkStory.canContinue)
         {
+            if (_end)
+            {
+                Application.Quit();
+                #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+                #endif
+            }
             GameManager.Instance.menu.SetActive(true);
             gameObject.SetActive(false);
         }
@@ -113,4 +122,11 @@ public class ContentManager : MonoBehaviour
         UpdateDisplay();
     }
 
+    public void GoToEnd()
+    {
+        _inkStory.ChoosePathString("End");
+        _inkStory.Continue();
+        _end = true;
+        UpdateDisplay();
+    }
 }

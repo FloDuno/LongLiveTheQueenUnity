@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LessonTypeContainer : MonoBehaviour
 {
     public bool specialities;
-    public WeekManager weekManager;
+    public ActivityManager weekManager;
     public CharacterStats characterStats;
 
     [SerializeField] private GameObject _togglePrefab;
@@ -26,12 +26,12 @@ public class LessonTypeContainer : MonoBehaviour
         List<ActivityManager.Lesson> _lessons = new List<ActivityManager.Lesson>();
         if (!specialities)
         {
-            for (int i = 0; i < weekManager.activityManagerWeek.allLessons.Length; i++)
+            for (int i = 0; i < weekManager.allLessons.Length; i++)
             {
-                if (weekManager.activityManagerWeek.allLessons[i].type == lessonType)
+                if (weekManager.allLessons[i].type == lessonType)
                 {
                     _numberOfLessonOfThisType++;
-                    _lessons.Add(weekManager.activityManagerWeek.allLessons[i]);
+                    _lessons.Add(weekManager.allLessons[i]);
                 }
             }
         }

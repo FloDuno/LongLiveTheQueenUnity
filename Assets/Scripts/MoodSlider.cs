@@ -9,6 +9,7 @@ public class MoodSlider : MonoBehaviour
     [HideInInspector] public string moodToDisplay;
     [HideInInspector] public int moodToDisplayIndex;
 
+    [SerializeField] private Text _topText, _bottomText;
     // Use this for initialization
     private void Start()
     {
@@ -18,10 +19,12 @@ public class MoodSlider : MonoBehaviour
                 _moodToDisplay = characterStats.moods[i];
         }
 
-        _mySlider = GetComponent<Slider>();
+        _mySlider = GetComponentInChildren<Slider>();
         _mySlider.minValue = -5;
         _mySlider.maxValue = 5;
         _mySlider.wholeNumbers = true;
+        _topText.text = _moodToDisplay.maxName;
+        _bottomText.text = _moodToDisplay.minName;
     }
 
     // Update is called once per frame
