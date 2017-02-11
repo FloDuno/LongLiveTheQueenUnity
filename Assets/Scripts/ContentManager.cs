@@ -30,11 +30,12 @@ public class ContentManager : MonoBehaviour
         _choicesButtons = _choicesHandler.GetComponentsInChildren<Button>();
         for (int i = 0; i < GameManager.Instance.characterStats.moods.Length; i++)
         {
-            _inkStory.variablesState[GameManager.Instance.characterStats.moods[i].nameInInk] =
-                GameManager.Instance.characterStats.moods[i].intialValue;
             int _index = i;
+            _inkStory.variablesState[GameManager.Instance.characterStats.moods[_index].nameInInk] = GameManager
+                .Instance.characterStats.moods[_index]
+                .intialValue;
             _inkStory.ObserveVariable(
-                GameManager.Instance.characterStats.moods[i].nameInInk,
+                GameManager.Instance.characterStats.moods[_index].nameInInk,
                 (string _varName, object _newValue) =>
                 {
                     GameManager.Instance.characterStats.moods[_index].value = (int)_newValue;
@@ -48,19 +49,19 @@ public class ContentManager : MonoBehaviour
     private void Update()
     {
         _mainText.text = _inkStory.currentText;
-        if (Input.GetMouseButtonDown(0) && _inkStory.canContinue && _inkStory.currentChoices.Count == 0)
+        if (Input.GetMouseButtonUp(0) && _inkStory.canContinue && _inkStory.currentChoices.Count == 0)
         {
             _inkStory.Continue();
             UpdateDisplay();
         }
-        else if (Input.GetMouseButtonDown(0) && !_inkStory.canContinue)
+        else if (Input.GetMouseButtonDown(0) && !_inkStory.canContinue && _inkStory.currentChoices.Count == 0)
         {
             if (_end)
             {
                 Application.Quit();
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
-                #endif
+#endif
             }
             GameManager.Instance.menu.SetActive(true);
             gameObject.SetActive(false);

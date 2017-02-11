@@ -9,9 +9,9 @@ public class ActivityToggle : MonoBehaviour
     //HideInInspector since it's passed through script
     [HideInInspector] public Toggle myToggle;
 
-    [HideInInspector, Range(1, 100)] public int groupOfActivities;
-    [HideInInspector] public ActivityManager.Lesson lesson;
-    [HideInInspector] public ActivityManager.Lesson.LessonOption lessonOption;
+    [HideInInspector] public int groupOfActivities;
+    public ActivityManager.Lesson lesson;
+    public ActivityManager.Lesson.LessonOption lessonOption;
     [HideInInspector] public bool isSpeciality;
 
     // Use this for initialization

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 //Singleton
 public class GameManager : MonoBehaviour
 {
-
     [HideInInspector] public int dayNumber;
 
     public CharacterStats characterStats;
@@ -13,6 +13,23 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int _maxDays;
     private static GameManager _instance;
+
+
+    public bool CanEndDay
+    {
+        get
+        {
+            Toggle[] _allToggles = FindObjectsOfType<Toggle>();
+            int _clickedToggle = 0;
+            for (int i = 0; i < _allToggles.Length; i++)
+            {
+                if (_allToggles[i].isOn)
+                    _clickedToggle++;
+            }
+
+            return _clickedToggle >= 4; //Lesson + option
+        }
+    }
 
     // Game Instance Singleton
     public static GameManager Instance
@@ -48,5 +65,10 @@ public class GameManager : MonoBehaviour
             _contentManager.GoToEnd();
         }
         menu.SetActive(false);
+    }
+
+    private void Update()
+    {
+        //        print(characterStats.moods[0].value);
     }
 }

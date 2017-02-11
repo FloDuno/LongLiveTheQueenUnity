@@ -28,7 +28,7 @@ public class IntroDisplayer : MonoBehaviour
     private void Update()
     {
         _mainText.text = _inkStory.currentText;
-        if (Input.GetMouseButtonDown(0) && _inkStory.canContinue && _inkStory.currentChoices.Count == 0)
+        if (Input.GetMouseButtonUp(0) && _inkStory.canContinue && _inkStory.currentChoices.Count == 0)
         {
             _inkStory.Continue();
             UpdateDisplay();

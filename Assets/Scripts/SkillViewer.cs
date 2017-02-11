@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillViewer : MonoBehaviour
@@ -28,10 +27,20 @@ public class SkillViewer : MonoBehaviour
             {
                 CharacterStats.Stat _statToPass = myStatGroups[i].stats[j];
                 GameObject _skillSlider = Instantiate(_statSliderPrefab, _slidersParent);
-                _skillSlider.GetComponentInChildren<SkillSlider>().statIndex = new []{i,j};
+                _skillSlider.GetComponentInChildren<SkillSlider>().statIndex = new []{GetStatGroupIndex(myStatGroups[i]),j};
                 _skillSlider.GetComponentInChildren<Text>().text = _statToPass.name;
                 _skillSlider.transform.localScale = Vector3.one;
             }
         }
+    }
+
+    private int GetStatGroupIndex(CharacterStats.StatGroup _statGroup)
+    {
+        for (int i = 0; i < characterStats.statGroups.Length; i++)
+        {
+            if (characterStats.statGroups[i].name == _statGroup.name)
+                return i;
+        }
+        return -1;
     }
 }

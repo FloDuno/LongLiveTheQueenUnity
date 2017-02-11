@@ -30,7 +30,7 @@ public class ActivityManager : ScriptableObject
         public struct LessonOption
         {
             public string[] valueToChange;
-            public int[] valueToChangeIndex;
+            [HideInInspector] public int[] valueToChangeIndex;
             public int[] valueToAdd;
             public string name;
 
@@ -38,14 +38,22 @@ public class ActivityManager : ScriptableObject
             //Get all needed value from stats and apply increase/decrease
             public void Launch(CharacterStats _characterStats)
             {
-                List<string> _valuesToChange = valueToChange.ToList();//Use a List instead of an Array because Contains is so much straight forward compared to IndexOf
+                List<string> _valuesToChange =
+                    valueToChange
+                        .ToList(); //Use a List instead of an Array because Contains is so much straight forward compared to IndexOf
                 for (int i = 0; i < _characterStats.statGroups.Length; i++)
                 {
                     for (int j = 0; j < _characterStats.statGroups[i].stats.Length; j++)
                     {
-                        if (_valuesToChange.Contains(_characterStats.statGroups[i].stats[j].name))//If one of the stat is the stat we want to change, change it modafuka
+                        if (_valuesToChange.Contains(
+                            _characterStats
+                                .statGroups[i]
+                                .stats[j]
+                                .name)) //If one of the stat is the stat we want to change, change it modafuka
+                        {
                             _characterStats.statGroups[i].stats[j].value += valueToAdd[_valuesToChange.FindIndex(
                                 x => x == _characterStats.statGroups[i].stats[j].name)];
+                        }
                     }
                 }
             }
