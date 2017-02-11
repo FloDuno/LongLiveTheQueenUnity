@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+//Like for the skills, slider are better feedbacks
+//Get the right mood reference and display it, nothing awesome
 public class MoodSlider : MonoBehaviour
 {
     public CharacterStats characterStats;

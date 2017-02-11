@@ -4,6 +4,7 @@ using UnityEngine.UI;
 //Singleton
 public class GameManager : MonoBehaviour
 {
+    //Check if we finished the game
     [HideInInspector] public int dayNumber;
 
     public CharacterStats characterStats;
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _maxDays;
     private static GameManager _instance;
 
-
+    //We can launch the event only if lessons has been selected
     public bool CanEndDay
     {
         get
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         dayNumber = 1;
     }
 
+    //Hide menu and display text
     private void DisplayTextOfTheDay(CharacterStats _characterStats)
     {
         _contentManager.gameObject.SetActive(true);
@@ -65,10 +67,5 @@ public class GameManager : MonoBehaviour
             _contentManager.GoToEnd();
         }
         menu.SetActive(false);
-    }
-
-    private void Update()
-    {
-        //        print(characterStats.moods[0].value);
     }
 }

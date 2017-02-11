@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 using UnityEditor;
 
+//As usual popup are better for string selection
 [CustomEditor(typeof(SkillViewer)), CanEditMultipleObjects]
 public class SkillViewerEditor : Editor
 {

@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 public class SkillViewer : MonoBehaviour
 {
+    //Handled in majority by the custom editor
+    //Allow to choose for which stat type is the panel
+    //Every state is displayed as a slider
     public CharacterStats characterStats;
     [HideInInspector] public string skillToView;
     [HideInInspector] public int skillToViewIndex;
@@ -15,8 +18,10 @@ public class SkillViewer : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //Display group name
         Text _header = GetComponentInChildren<Text>();
         _header.text = myStatGroups[0].type;
+        //Spawn every slider and assign reference to the stat value
         Transform _slidersParent = GetComponentInChildren<VerticalLayoutGroup>().transform;
         for (int i = 0; i < myStatGroups.Length; i++)
         {
@@ -34,6 +39,7 @@ public class SkillViewer : MonoBehaviour
         }
     }
 
+    //Used to find the index of a stat group in all stat groups
     private int GetStatGroupIndex(CharacterStats.StatGroup _statGroup)
     {
         for (int i = 0; i < characterStats.statGroups.Length; i++)

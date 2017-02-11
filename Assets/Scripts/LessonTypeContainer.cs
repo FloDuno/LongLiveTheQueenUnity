@@ -62,8 +62,6 @@ public class LessonTypeContainer : MonoBehaviour
         }
         else
         {
-
-
             Toggle[] _childrenLessons = GetComponentsInChildren<Toggle>();
             for (int i = 0; i < _childrenLessons.Length; i++)
             {

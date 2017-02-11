@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 
+//Popup for string and changing references, as usual
 [CustomEditor(typeof(MoodSlider)), CanEditMultipleObjects]
 public class MoodSliderEditor : Editor
 {

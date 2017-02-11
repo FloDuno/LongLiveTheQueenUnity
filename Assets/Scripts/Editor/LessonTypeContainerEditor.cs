@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 
+//Popup to choose string to avoid mistakes
 [CustomEditor(typeof(LessonTypeContainer)), CanEditMultipleObjects]
 public class LessonTypeContainerEditor : Editor
 {

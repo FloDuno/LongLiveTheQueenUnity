@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//Light ContentManager
 public class IntroDisplayer : MonoBehaviour
 {
     [SerializeField] private Text _nameCharacter;
